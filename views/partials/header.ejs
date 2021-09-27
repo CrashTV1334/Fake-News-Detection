@@ -13,23 +13,30 @@
 <body >
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"> <strong> NEWS </strong></a>
+        <a class="navbar-brand"> <strong> NEWS </strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <!-- <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a> -->
-            <a class="nav-item nav-link" href="#"><strong>Check NEWS</strong></a>
-            <a class="nav-item nav-link" href="#">About</a>
+            <a class="nav-item nav-link"><strong>Check NEWS</strong></a>
+            <a class="nav-item nav-link">About</a>
             <!-- <a class="nav-item nav-link disabled" href="#">Disabled</a> -->
 
           </div>
         </div>
         <div style="float: right;">
             <form class="form-inline">
-                <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="submit">Log In</button>
-                <button class="btn btn-primary my-2 my-sm-0" type="submit">Sign Up</button>
+              <%if(!currentUser){%>
+                <button class="btn btn-outline-success my-2 my-sm-0 mr-2" onclick="window.location.href='/login'; return false;">Log In</button>
+                <button class="btn btn-primary my-2 my-sm-0" onclick="window.location.href='/register'; return false;">Sign Up</button>
+              <%}else{%>
+              <p id="userName">
+                  <span id="navUserName">  Logged in as <strong><%=currentUser.username%></strong> <span>
+              </p>
+                <button class="btn btn-danger" onclick="window.location.href='/logout'; return false;">Log Out</button>
+              <%} %>
             </form>
         </div>
       </nav>

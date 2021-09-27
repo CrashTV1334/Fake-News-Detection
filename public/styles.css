@@ -32,3 +32,8 @@ html {
   color: #fff;
   font-weight: bold;
 }
+
+#navUserName {
+  color: #fff;
+  margin-right: 20px;
+}

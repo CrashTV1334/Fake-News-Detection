@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/stylesheets/main.css"> -->
+</head>
+
+<body>
+    <h1 align="center">Sign Up</h1>
+    <br>
+    <br>
+    <div class="container" align="center">
+        <form action="/register" method="POST">
+            <!-- Username -->
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username">
+            </div>
+            <!-- Password -->
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <!-- Location -->
+            <div class="form-group">
+                <input type="text" name="location" placeholder="Location">
+            </div>
+            <!-- Interests -->
+            <div class="form-group">
+                Graphics Cards<input type="checkbox" name="interests[]" id="interest" value="Graphics Cards">
+                Religion<input type="checkbox" name="interests[]" id="interest" value="Religion">
+                Space<input type="checkbox" name="interests[]" id="interest" value="Space">
+                Politics<input type="checkbox" name="interests[]" id="interest" value="Politics">
+                Violence<input type="checkbox" name="interests[]" id="interest" value="Violence">
+                Technology<input type="checkbox" name="interests[]" id="interest" value="Technology">
+                Encryption<input type="checkbox" name="interests[]" id="interest" value="Encryption">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
