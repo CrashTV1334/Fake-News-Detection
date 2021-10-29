@@ -59,7 +59,9 @@ app.post("/register", function(req, res){
     // console.log(req.body);
     User.register(new User({
         username: req.body.username,
-        location: req.body.location,
+        name: req.body.name,
+        state: req.body.state,
+        city: req.body.city,
         interests: req.body.interests
     }), req.body.password, function (err, user) {
         if (err) {

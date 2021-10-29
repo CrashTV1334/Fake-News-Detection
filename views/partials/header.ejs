@@ -33,7 +33,7 @@
                 <button class="btn btn-primary my-2 my-sm-0" onclick="window.location.href='/register'; return false;">Sign Up</button>
               <%}else{%>
               <p id="userName">
-                  <span id="navUserName">  Logged in as <strong><%=currentUser.username%></strong> <span>
+                  <span id="navUserName">  Logged in as <strong><%=currentUser.name%></strong> <span>
               </p>
                 <button class="btn btn-danger" onclick="window.location.href='/logout'; return false;">Log Out</button>
               <%} %>
