@@ -1,128 +1,36 @@
 <%- include('partials/header.ejs') %>
 
-    <%if(currentUser){
-        var currUser = currentUser
-    }else{
-        var currUser = {news: []}
-    }%>
-
-    <script>
-        // var currPg = page_no1;
-        const cipher = salt => { 
-            const textToChars = text => text.split('').map(c => c.charCodeAt(0)); 
-            const byteHex = n => ("0" + Number(n).toString(16)).substr(-2); 
-            const applySaltToChar = code => textToChars(salt).reduce((a,b) => a ^ b, code); 
-            return text => text.split('') 
-                .map(textToChars) 
-                .map(applySaltToChar) 
-                .map(byteHex) 
-                .join(''); 
-        } 
-
-        var cur_content, cur_headline, page_no = parseInt('<%=currPg%>'), whole, Article_Link;
-        // console.log(page_no);
-        fetch('https://newsapi.org/v2/top-headlines?country=in&apiKey=994193f31b7849e69ac77c6e2075996a')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                whole = data;
-                // console.log(data);
-                Display();
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-            
-        function Display() {
-            Article_Link = whole.articles[page_no].url;            
-            var mainContainer = document.getElementById("Headline");
-            mainContainer.innerText = whole.articles[page_no].title;
-            mainContainer = document.getElementById("content");
-            mainContainer.innerText = whole.articles[page_no].content;
-            document.getElementById("news_image").src=whole.articles[page_no].urlToImage; 
-
-            var reportButton = document.getElementById("reportButton");
-
-
-            var nwss = '<%=currUser.news%>';
-            
-
-            // console.log(nwss);
-
-            const myCipher1 = cipher('mySecretSalt'); 
-            var ct1 = document.getElementById("Headline").textContent; 
-            encrypted1 = myCipher1(ct1);
-            sub_encrypted1 = encrypted1.substring(0, 16);
-
-            var pres = nwss.includes(sub_encrypted1);
-
-            if(pres===true)
-            {
-                reportButton.innerText="Unreport Fake";
-                reportButton.className = "btn btn-warning m-3"
-            }
-            else
-            {
-                reportButton.innerText="Report Fake";
-                reportButton.className = "btn btn-danger m-3"
-            }
-            
-        }
-        function Previous() { if (page_no > 0) page_no -= 1; Display(); }
-        function Next() { page_no += 1; Display(); }
-        function hashId()
-        {
-            var nws1 = '<%=currUser.news%>';
-
-            var reportButton = document.getElementById("reportButton");
-            const myCipher = cipher('mySecretSalt'); 
-            var ct = document.getElementById("Headline").textContent; 
-            encrypted = myCipher(ct);
-            sub_encrypted = encrypted.substring(0, 16);
-
-            // reportButton.innerText = nws1;
-
-            if(reportButton.innerText === "Unreport Fake")
-            {
-                location.assign('/upvote/'+sub_encrypted+'/'+page_no);
-            }
-            else
-            {
-                location.assign('/downvote/'+sub_encrypted+'/'+page_no);
-            }
-        }
-
-    </script>
-
     <div class="jumbotron"
         style=" text-align: center; text-align: center;  margin:10%; padding: 5%;">
         <div>
             
-            <div><img id="news_image" height="auto" width="80%" class="shadow-sm p-3 mb-5 bg-white rounded"></div>
+            <div><img id="news_image" height="auto" width="80%" class="shadow-sm p-3 mb-5 bg-white rounded" src="<%=newsData.img_Url%>"></div>
             <div style="margin: 40px;">
-                <h4 id="Headline"></h4>
+                <h4 id="Headline"><%=newsData.title%></h4>
             </div>
-            <div id="content"></div>
+            <div id="content"><%=newsData.description%></div>
 
         </div>
 
         <div class="col-lg-12">
-             <a class="btn btn-primary m-3" href="" onclick="location.href=Article_Link;" target="_blank"> Read Full Article </a>
+             <a class="btn btn-primary m-3" href= '<%=newsData.news_url%>' target="_blank"> Read Full Article </a>
         </div>
         <div class="col-lg-12">
-            <button type="button" class="btn btn-primary m-3" onclick="Previous()">Previous</button>
-            <%if(currentUser){%>
-                <% var nws = currentUser.news; %>
-                
-                <button type = "button" class="btn btn-danger m-3" onclick="hashId()" id="reportButton">Report Fake</button>
-            <%}%>
-
-            <button type="button" class="btn btn-primary m-3" onclick="Next()">Next</button>
+            
+                <a class="btn btn-primary m-2" href= '/<%=newsData%>/previous' target="_self"> Previous </a>
+            
+                <%if(session_key!=""){%>
+                    <button class="btn btn-danger m-2" onclick="window.location.href=window.location.href+'/downvote'; return false;">Downvote</button>
+                    <button class="btn btn-danger m-2" onclick="window.location.href=window.location.href+'/upvote'; return false;">Upvote</button>
+                <%}%>
+            
+                <a class="btn btn-primary m-2" href= '/<%=newsData%>/next' target="_self"> Next </a>
+            
         </div>
     </div>
     </div>
 
 
     <br><br>
+    <script src="javascripts/getNews.js"></script>
     <%- include('partials/footer.ejs') %>

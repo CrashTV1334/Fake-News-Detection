@@ -24,20 +24,22 @@
             <a class="nav-item nav-link">About</a>
             <!-- <a class="nav-item nav-link disabled" href="#">Disabled</a> -->
 
+            
+
           </div>
         </div>
         <div style="float: right;">
-            <form class="form-inline">
-              <%if(!currentUser){%>
-                <button class="btn btn-outline-success my-2 my-sm-0 mr-2" onclick="window.location.href='/login'; return false;">Log In</button>
-                <button class="btn btn-primary my-2 my-sm-0" onclick="window.location.href='/register'; return false;">Sign Up</button>
-              <%}else{%>
+          <form class="form-inline">
+            <%if(session_key==""){%>
+              <button class="btn btn-outline-success my-2 mx-2 my-sm-0" onclick="window.location.href=window.location.href+'/login'; return false;">Login</button>
+              <button class="btn btn-primary my-2 my-sm-0" onclick="window.location.href=window.location.href+'/register'; return false;">Sign Up</button>
+            <%}else{%>
               <p id="userName">
-                  <span id="navUserName">  Logged in as <strong><%=currentUser.name%></strong> <span>
+                <span id="navUserName">  Logged in as <strong><%=user_name%></strong> <span>
               </p>
-                <button class="btn btn-danger" onclick="window.location.href='/logout'; return false;">Log Out</button>
-              <%} %>
-            </form>
+              <button class="btn btn-danger my-2 my-sm-0" onclick="window.location.href=window.location.href+'/logout'; return false;">Logout</button>
+            <%}%>
+          </form>
         </div>
       </nav>
 
