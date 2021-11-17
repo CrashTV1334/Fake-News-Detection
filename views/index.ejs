@@ -14,14 +14,16 @@
 
         <div class="col-lg-12">
              <a class="btn btn-primary m-3" href= '<%=newsData.news_url%>' target="_blank"> Read Full Article </a>
+             <br>
+             <p class="btn btn-outline-info"> Chances of being Fake: <%=newsData.fake_percentage%>% </p>
         </div>
         <div class="col-lg-12">
             
                 <a class="btn btn-primary m-2" href= '/<%=newsData%>/previous' target="_self"> Previous </a>
             
                 <%if(session_key!=""){%>
-                    <button class="btn btn-danger m-2" onclick="window.location.href=window.location.href+'/downvote'; return false;">Downvote</button>
-                    <button class="btn btn-danger m-2" onclick="window.location.href=window.location.href+'/upvote'; return false;">Upvote</button>
+                    <button class="btn btn-danger m-2" onclick="window.location.href=window.location.href+'/downvote'; return false;">Downvote <span class="badge badge-light"><%=newsData.downvotes%></span></button>
+                    <button class="btn btn-danger m-2" onclick="window.location.href=window.location.href+'/upvote'; return false;">Upvote <span class="badge badge-light"><%=newsData.upvotes%></span></button>
                 <%}%>
             
                 <a class="btn btn-primary m-2" href= '/<%=newsData%>/next' target="_self"> Next </a>
